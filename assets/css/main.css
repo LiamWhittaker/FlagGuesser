@@ -1,0 +1,115 @@
+html {
+    height: 100%;
+}
+body {
+    font-family: 'Roboto', sans-serif;  
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+
+header {
+    /* We want the header to have a static height, 
+    it will always take up just as much space as it needs.  */
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+
+    background-color: #3768D3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: whitesmoke;
+}
+
+section {
+    /* By setting flex-grow to 1, the main content will take up 
+    all of the remaining space on the page. 
+    The other elements have flex-grow: 0 and won't contest the free space. */
+    /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 1 0 auto;
+
+    background-color: #D7E3FC;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
+    padding: 15px 30px;
+}
+
+footer {      
+    /* Like the header, the footer will have a static height - it shouldn't grow or shrink.  */
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+
+    background-color: #111A2C;
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 
+.main {
+}
+ */
+.messagebox {
+    display: flex;
+    justify-content: center;
+    background-color: #045804;
+    box-shadow: 0 6px 9px rgba(187, 118, 28, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 #2EE03D;    
+    border-radius: 4px;
+    padding: 7px;
+    margin-bottom: 10px;
+}
+
+.message {
+    color: whitesmoke;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flagcontainer {
+    height: 400px;
+    width: 300px;
+}
+
+.flag {
+    height: 400px;
+    width: 300px;
+}
+
+.options {
+    width: 80%;
+    padding: 10px;
+}
+
+.button {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #1E31D6;
+    color: #060313;
+    border-radius: 8px;
+    margin: 5px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 24px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #1E31D6;
+    color: white;
+}
