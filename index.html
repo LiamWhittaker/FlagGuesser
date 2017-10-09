@@ -13,21 +13,22 @@
         <h1>Flag Guessing Game</h1>
     </header>
 
-    <section class="main">
+
+    <section id="main" class="main">
         <div class="messagebox">
-            <span class="message">You Won!</span>
+            <span class="message"><button id="begin">Click to begin game</button></span>
         </div>
 
         <div class="game">
             <div class="flagcontainer">
-                <img src="assets/img/gb-eng.svg" class="flag">
+                <img src="assets/img/default.png" id="flag">
             </div>
 
             <div class="options">
-                <button class="button">England</button>
-                <button class="button">Scotland</button>
-                <button class="button">Ireland</button>
-                <button class="button">Wales</button>
+                <button class="button" id="button1" value=""></button>
+                <button class="button" id="button2" value=""></button>
+                <button class="button" id="button3" value=""></button>
+                <button class="button" id="button4" value=""></button>
             </div>
         </div>
     </section>
@@ -36,6 +37,7 @@
         <p>Created by Liam Whittaker</p> 
     </footer>
     
+    <script src="assets/js/lib/jquery-3.2.1.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
