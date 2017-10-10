@@ -64,7 +64,9 @@ const JSON = [
 ];
 //     { "name": "", "filename": ".svg", "region": "" }, 
 
-$('#begin').click( function() {
+var gameOn = false;
+
+$("#begin").click(function(){
     initializeGame();
 });
 
@@ -78,17 +80,49 @@ function generateCountries(){
 }
 
 function initializeGame(){
+    gameOn = true; // Start game
+    $(".messagebox").css("visibility", "hidden"); // Hide the message box
     let countries = generateCountries();
-    let goalCountry = countries[Math.floor(Math.random() * 4)];
+    let index = Math.floor(Math.random() * 4);
+    var goalCountry = countries[index];
 
-    // Populate buttons
+    // Populate and show buttons
     for (var i = 0; i < 4; i++){
         $(`#button${i+1}`).text(countries[i].name);
-    }
-    
+        $(`#button${i+1}`).on("click", function(){
+            if($(this).text() === goalCountry.name){
+                $(".button").addClass("correct").attr("disabled", "true");
+                $(this).addClass("correctguess");
+                updateMessagebox("Victory");                
+            } else {
+                $(".button").addClass("incorrect").attr("disabled", "true");
+                $(this).addClass("incorrectguess");
+                $(`#button${index+1}`).addClass("correctguess");
+                updateMessagebox("Incorrect");
+            }
+        });
+    };
     $(".button").css("visibility", "visible");
 
-    // Update goal flag
+    // Show the goal flag
     $("#flag").attr("src", `assets/img/${goalCountry.filename}`); 
 
+}
+
+function checkVictory(guess, answer){
+    console.log(guess);
+    console.log(answer);
+    return guess === answer;
+}
+
+function updateMessagebox(message){
+    switch(message){
+        case "Victory":
+            $(".messagebox").css("visibility", "visible"); 
+            $(".message").text("You Won!");
+            break;  
+        case "Incorrect":
+            $(".messagebox").css("visibility", "visible"); 
+            $(".message").text("Wrong! Better luck next time");
+    }
 }

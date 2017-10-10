@@ -100,6 +100,7 @@ footer {
     background-color: transparent;
     border: 2px solid #1E31D6;
     color: #060313;
+    outline: none;
     border-radius: 8px;
     margin: 5px;
     padding: 15px;
@@ -113,7 +114,25 @@ footer {
     transition-duration: 0.4s;
 }
 
-.button:hover {
+.correct {
+    border: 2px solid #0FDA19;
+}
+
+.correctguess {
+    background-color: #267428 !important;
+    color: whitesmoke;
+}
+
+.incorrect {
+    border: 2px solid #DA0F0F;    
+}
+
+.incorrectguess {
+    background-color: #941F1F !important;
+    color: whitesmoke;
+}
+
+.button:hover:enabled {
     background-color: #1E31D6;
     color: white;
 }
