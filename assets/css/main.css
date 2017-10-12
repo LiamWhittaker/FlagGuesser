@@ -1,6 +1,7 @@
 html {
     height: 100%;
 }
+
 body {
     font-family: 'Roboto', sans-serif;  
     display: flex;
@@ -10,7 +11,6 @@ body {
     padding: 0;
     top: 0;
     left: 0;
-    background-color: red;
 }
 
 header {
@@ -18,16 +18,17 @@ header {
     it will always take up just as much space as it needs.  */
     /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
     flex: 0 0 auto;
-
     background-color: #3768D3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
 
 h1 {
     color: whitesmoke;
+    display: block;
 }
 
 section {
@@ -36,7 +37,6 @@ section {
     The other elements have flex-grow: 0 and won't contest the free space. */
     /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
     flex: 1 0 auto;
-
     background-color: #D7E3FC;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
     padding: 15px 30px;
@@ -46,26 +46,60 @@ footer {
     /* Like the header, the footer will have a static height - it shouldn't grow or shrink.  */
     /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
     flex: 0 0 auto;
-
     background-color: #111A2C;
     color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* 
-.main {
+
+.stripe {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
 }
- */
+
+#begin {
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #1E31D6;
+    color: whitesmoke;
+    font-size: 1.2em;
+    outline: none;
+    border-radius: 8px;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.health {
+    color: red;
+    font-size: 1.5em;
+    width: 15%;
+    height: 100%;
+    visibility: hidden;
+}
+
 .messagebox {
     display: flex;
     justify-content: center;
-    background-color: #5C73DA;
-    box-shadow: 0 6px 9px rgba(187, 118, 28, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 #2E3AE0;    
-    border-radius: 4px;
-    padding: 7px;
-    margin-bottom: 10px;
+    align-items: center;
+    width: 33%;
+    height: 100%;
+}
+
+.thirdbox {
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    width: 15%;  
+    height: 100%;     
 }
 
 .message {
@@ -80,13 +114,11 @@ footer {
 }
 
 .flagcontainer {
-    height: 300px;
-    width: 400px;
+    width: 50%;
 }
 
 #flag {
-    height: 300px;
-    width: 400px;
+    width: 100%;
 }
 
 .options {

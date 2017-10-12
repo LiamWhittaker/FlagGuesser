@@ -64,13 +64,21 @@ const JSON = [
 ];
 //     { "name": "", "filename": "", "region": "" }, 
 
-var gameOn = false;
+var gameOn = false,
+    hearts = 3,
+    score = 0,
+    countries = "",
+    index = 0,
+    goalCountry = "";
 
-$("#begin").click(function(){
-    initializeGame();
-});
 
+initializeStartButton();
 
+function initializeStartButton() {
+    $("#begin").click(function() {
+        initializeGame();
+    });
+}
 
 // Generate 4 random countries from the array
 function generateCountries(){
@@ -81,49 +89,108 @@ function generateCountries(){
 
 function initializeGame(){
     gameOn = true; // Start game
-    $(".messagebox").css("visibility", "hidden"); // Hide the message box
-    let countries = generateCountries();
-    let index = Math.floor(Math.random() * 4);
-    var goalCountry = countries[index];
-
-    // Populate and show buttons
-    for (var i = 0; i < 4; i++){
-        $(`#button${i+1}`).text(countries[i].name);
-        $(`#button${i+1}`).on("click", function(){
-            if($(this).text() === goalCountry.name){
-                $(".button").addClass("correct").attr("disabled", "true");
-                $(this).addClass("correctguess");
-                updateMessagebox("Victory");                
-            } else {
-                $(".button").addClass("incorrect").attr("disabled", "true");
-                $(this).addClass("incorrectguess");
-                $(`#button${index+1}`).addClass("correctguess");
-                updateMessagebox("Incorrect");
-            }
-        });
-    };
-    $(".button").css("visibility", "visible");
-
-    // Show the goal flag
-    $("#flag").attr("src", `assets/img/${goalCountry.filename}.svg`); 
-
+    hearts = 3;
+    score = 0;
+    $("#score").text(score);    
+    updateMessagebox();
+    reset();
 }
 
-function checkVictory(guess, answer){
-    console.log(guess);
-    console.log(answer);
-    return guess === answer;
+function reset(){
+    if(gameOn){
+        countries = generateCountries();
+        index = Math.floor(Math.random() * 4);
+        goalCountry = countries[index];
+        resetButtons();
+        updateMessagebox();
+
+        // Populate and show buttons
+        for (var i = 0; i < 4; i++){
+            $(`#button${i+1}`).text(countries[i].name);
+            $(`#button${i+1}`).on("click", function(){
+                $(".button").addClass("correct").attr("disabled", "true");
+                
+                if($(this).text() === goalCountry.name){
+                    $(this).addClass("correctguess");
+                    addScore();
+                    updateMessagebox("Correct");                    
+                    setTimeout(reset, 3000);                
+                } else {
+                    $(this).addClass("incorrectguess");
+                    $(`#button${index+1}`).addClass("correctguess");
+                    loseLife();
+                    setTimeout(reset, 3000);
+                }
+            });
+        };
+        drawHearts(hearts);
+
+        // Show the goal flag
+        $("#flag").attr("src", `assets/img/${goalCountry.filename}.svg`);
+    } else {
+        $("#flag").attr("src", `assets/img/default.png`);        
+        $(".button").css("visibility", "hidden");
+        $("#score").text(score);        
+        updateMessagebox("New");       
+    }
+}
+
+function resetButtons(){
+    $(".button").off();
+    $(".button").css("visibility", "visible").prop("disabled", false).removeClass("correctguess incorrectguess correct");
+    $(".button").text("");
+}
+
+function addScore(){
+    score++;
+    $("#score").text(score);
 }
 
 function updateMessagebox(message){
     switch(message){
-        case "Victory":
-            $(".messagebox").css("visibility", "visible"); 
-            $(".message").text("You Won!");
+        case "Correct":
+            $(".message").text("Congratulations, you guessed right!");
             break;  
         case "Incorrect":
-            $(".messagebox").css("visibility", "visible"); 
-            $(".message").text("Wrong! Better luck next time");
+            $(".message").text(`Wrong! You have ${hearts} lives remaining.`);
+            break;
+        case "Dead":
+            $(".message").text("You ran out of lives :( Your final score was: " + score);
+            setTimeout(reset, 3000);
+            break;
+        case "New":
+            $(".message").html(`<button id="begin">Start!</button>`);
+            initializeStartButton();
+            break;
+        default:
+            $(".message").text("");
             break;
     }
+}
+
+function drawHearts(num){
+    for(var i = 1; i <= num; i++){
+        $(`#health${i}`).css("visibility", "visible");
+    }
+}
+
+function loseLife(){
+    if(hearts === 1){
+        $("#health1").fadeOut( "slow", function() {
+            hearts--;
+            endGame();
+          });
+    } else {
+        $(`#health${hearts}`).fadeOut( "slow", function() {
+            hearts--;
+            updateMessagebox("Incorrect");
+        });
+    }
+}
+
+function endGame(){
+    gameOn = false;
+    updateMessagebox("Dead");
+    setTimeout(resetButtons, 2999); 
+    score = 0; 
 }
